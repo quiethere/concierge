@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L’Atelier Concierge</title>
+    <link rel="icon" type="image/jpeg" href="images/icon.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #020617;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass-bg: rgba(15, 23, 42, 0.95);
+            --border-color: rgba(255, 255, 255, 0.15);
+            --hero-overlay: rgba(2, 6, 23, 0.85);
+        }
+
+        .light-theme {
+            --bg-color: #f1f5f9;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --glass-bg: rgba(255, 255, 255, 0.9);
+            --border-color: rgba(15, 23, 42, 0.1);
+            --hero-overlay: rgba(241, 245, 249, 0.85);
+        }
+
+        html {
+            height: 100%;
+            background-color: var(--bg-color);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            background-image: linear-gradient(var(--hero-overlay), var(--hero-overlay)), 
+                              url('images/bg.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+        
+        h1, h2 { font-family: 'Playfair Display', serif; }
+
+        .glass {
+            background: var(--glass-bg);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            transition: background 0.4s ease, border 0.4s ease;
+        }
+
+        .silver-text {
+            background: linear-gradient(to right, #ffffff, #cbd5e1, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 8px rgba(255,255,255,0.2));
+        }
+
+        .light-theme .silver-text {
+            background: linear-gradient(to right, #0f172a, #475569, #0f172a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: none;
+        }
+
+        .light-theme header span.subtitle-text {
+            color: #0f172a !important;
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: #94a3b8;
+        }
+
+        .copy-feedback {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #10b981;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        .show-feedback { opacity: 1; }
+
+        .wa-btn:hover span { display: none; }
+        .wa-btn:hover::after { content: "+212 7 06 70 46 56"; }
+
+        @media (max-width: 1023px) {
+            .mobile-spacer { margin-top: 4rem; }
+            body { background-attachment: scroll; } 
+        }
+    </style>
+</head>
+<body>
+
+    <header class="fixed top-0 w-full z-50 glass py-4 px-6 sm:px-12 flex items-center justify-between">
+        <div class="w-12 hidden sm:block"></div>
+        
+        <div class="flex items-center space-x-4">
+            <img src="images/icon.jpg" alt="Logo" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-slate-500 object-cover">
+            
+            <div class="flex flex-col items-center">
+                <span class="text-xl sm:text-2xl font-semibold tracking-widest uppercase silver-text leading-none">L’Atelier Concierge</span>
+                <span class="subtitle-text text-[9px] sm:text-xs uppercase tracking-[0.2em] text-[#f8fafc] mt-2 font-semibold text-center w-full opacity-90">
+                    Entretien & Gestion Immobilière
+                </span>
+            </div>
+        </div>
+
+        <button onclick="toggleTheme()" class="p-3 rounded-full glass hover:bg-slate-700/20 transition-all border-slate-500/30">
+            <i id="theme-icon" data-lucide="sun" class="w-6 h-6"></i>
+        </button>
+    </header>
+
+    <main class="pt-32 sm:pt-40 pb-20 px-6 sm:px-12 max-w-[1600px] mx-auto overflow-x-hidden">
+        <div class="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
+            
+            <div class="lg:w-2/5 lg:sticky lg:top-28 space-y-6 text-left mobile-spacer">
+                <h1 class="text-5xl sm:text-7xl leading-tight">
+                    L’Excellence dans <span class="silver-text italic">l’Entretien</span> de votre Patrimoine.
+                </h1>
+                <p class="text-xl text-[var(--text-muted)] font-light leading-relaxed max-w-xl">
+                    Maintenance technique, sécurité et solutions énergétiques. Nous assurons la pérennité et la valorisation de vos biens immobiliers au Maroc.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="https://wa.me/212706704656" class="wa-btn bg-[#25D366] hover:bg-[#128c7e] px-8 py-4 rounded-full flex items-center justify-center space-x-3 font-bold text-white text-lg shadow-lg transition-all min-w-[200px]">
+                        <i data-lucide="message-circle" class="w-6 h-6"></i>
+                        <span>WHATSAPP</span>
+                    </a>
+
+                    <div class="relative inline-block">
+                        <div id="copyBadge" class="copy-feedback">COPIÉ !</div>
+                        <a href="mailto:immorahma66@gmail.com" 
+                           onclick="handleEmail(event)" 
+                           id="emailBtn" 
+                           class="bg-slate-800 hover:bg-slate-700 px-8 py-4 rounded-full flex items-center justify-center space-x-3 font-bold text-white text-lg border border-white/10 shadow-lg transition-all">
+                            <i data-lucide="mail" id="mailIcon" class="w-6 h-6"></i>
+                            <span id="emailText">EMAIL</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="space-y-4 pt-2">
+                    <div class="flex items-center space-x-3 font-bold uppercase tracking-widest text-sm">
+                        <i data-lucide="shield-check" class="w-6 h-6 text-blue-400"></i>
+                        <span>Sécurité & Gardiennage 24/7</span>
+                    </div>
+                    <div class="flex items-center space-x-3 font-bold uppercase tracking-widest text-sm">
+                        <i data-lucide="settings" class="w-6 h-6 text-orange-400"></i>
+                        <span>Intervention Technique Rapide</span>
+                    </div>
+                    <div class="flex items-center space-x-3 font-bold uppercase tracking-widest text-sm">
+                        <i data-lucide="sun" class="w-6 h-6 text-amber-400"></i>
+                        <span>Expertise Énergie Solaire</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:w-3/5 lg:mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass p-8 sm:p-10 rounded-3xl transition-all duration-300 service-card">
+                    <i data-lucide="flower-2" class="w-12 h-12 mb-6 text-emerald-500"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Jardinage & Piscine</h3>
+                    <p class="text-[var(--text-muted)] text-lg font-light leading-relaxed">Entretien paysager complet et traitement professionnel des bassins toute l'année.</p>
+                </div>
+
+                <div class="glass p-8 sm:p-10 rounded-3xl transition-all duration-300 service-card">
+                    <i data-lucide="wrench" class="w-12 h-12 mb-6 text-blue-500"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Plomberie & Électricité</h3>
+                    <p class="text-[var(--text-muted)] text-lg font-light leading-relaxed">Dépannage urgent et maintenance de toutes vos installations techniques.</p>
+                </div>
+
+                <div class="glass p-8 sm:p-10 rounded-3xl transition-all duration-300 service-card">
+                    <i data-lucide="sun" class="w-12 h-12 mb-6 text-amber-500"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Installation Solaire</h3>
+                    <p class="text-[var(--text-muted)] text-lg font-light leading-relaxed">Installation de panneaux photovoltaïques pour optimiser votre consommation.</p>
+                </div>
+
+                <div class="glass p-8 sm:p-10 rounded-3xl transition-all duration-300 service-card">
+                    <i data-lucide="shield" class="w-12 h-12 mb-6 text-red-500"></i>
+                    <h3 class="text-xl font-semibold mb-3">Sécurité & Travaux</h3>
+                    <p class="text-[var(--text-muted)] text-lg font-light leading-relaxed">Surveillance haute technologie et travaux de rénovation pour votre patrimoine.</p>
+                </div>
+
+                <div class="glass p-8 sm:p-10 rounded-3xl transition-all duration-300 service-card">
+                    <i data-lucide="scroll-text" class="w-12 h-12 mb-6 text-indigo-500"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Gestion Annuelle</h3>
+                    <p class="text-[var(--text-muted)] text-lg font-light leading-relaxed">Contrats d'entretien annuels personnalisés pour appartements et villas.</p>
+                </div>
+
+                <div class="glass p-8 sm:p-10 rounded-3xl transition-all duration-300 service-card">
+                    <i data-lucide="home" class="w-12 h-12 mb-6 text-pink-500"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Achat & Vente Immo</h3>
+                    <p class="text-[var(--text-muted)] text-lg font-light leading-relaxed">Expertise du marché local pour vos projets d'acquisition ou de cession.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="py-12 bg-slate-950/40 border-t border-slate-500/20 text-center">
+        <p class="text-[var(--text-muted)] text-md tracking-widest uppercase font-semibold">© 2026 L’ATELIER CONCIERGE</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            body.classList.toggle('light-theme');
+            const isLight = body.classList.contains('light-theme');
+            icon.setAttribute('data-lucide', isLight ? 'moon' : 'sun');
+            lucide.createIcons();
+        }
+
+        function handleEmail(e) {
+            const emailAddr = "immorahma66@gmail.com";
+            const btnText = document.getElementById('emailText');
+            const btnElement = document.getElementById('emailBtn');
+            const badge = document.getElementById('copyBadge');
+            
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+            if (!isMobile) {
+                e.preventDefault(); 
+                navigator.clipboard.writeText(emailAddr).then(() => {
+                    btnText.innerText = emailAddr;
+                    btnText.style.fontSize = "0.85rem";
+                    btnElement.classList.add('bg-slate-700');
+                    badge.classList.add('show-feedback');
+                    setTimeout(() => {
+                        badge.classList.remove('show-feedback');
+                    }, 2000);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
